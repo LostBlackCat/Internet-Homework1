@@ -1,5 +1,7 @@
 package net;
 
+import javax.xml.crypto.Data;
+
 public class DataBean {
     private String userName;
     private String password;
@@ -7,6 +9,7 @@ public class DataBean {
     private String toText;
     private String subject;
     private String message;
+    private String rtn;
 
     public DataBean(String userName, String password, String fromText, String toText, String subject, String message) {
         this.userName = userName;
@@ -15,6 +18,9 @@ public class DataBean {
         this.toText = toText;
         this.subject = subject;
         this.message = message;
+    }
+    public DataBean(){
+        userName = null;
     }
 
     public String getUserName() {
@@ -39,5 +45,37 @@ public class DataBean {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getRtn() {
+        return rtn;
+    }
+
+    public void setRtn(String rtn) {
+        this.rtn = rtn;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFromText(String fromText) {
+        this.fromText = fromText;
+    }
+
+    public void setToText(String toText) {
+        this.toText = toText;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

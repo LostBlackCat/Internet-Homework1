@@ -1,11 +1,13 @@
 package UI;
 
-import net.DataBean;
-
+import net.NetControl;
 import  javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import static java.lang.Thread.sleep;
 
 public class MainPanel extends JPanel{
     private JLabel fromLabel;
@@ -24,7 +26,7 @@ public class MainPanel extends JPanel{
     private JButton clearButton;
     public JButton quitButton;
 
-    private DataBean bean;
+    private NetControl control;
 
 
 
@@ -92,6 +94,118 @@ public class MainPanel extends JPanel{
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    control = new NetControl();
+                    control.sendHELO();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "TCP Connection lost,please check your network state.",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                control.bean.setUserName(usernameText.getText());
+                control.bean.setPassword(String.copyValueOf(passwordText.getPassword()));
+                System.out.println(control.bean.getPassword());
+
+                try{
+                    control.sendUserName();
+                    control.sendPassword();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "TCP Connection lost,\nplease check your network state.",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                System.out.println(control.bean.getRtn()+"**************");
+                if(control.bean.getRtn().equals("535 Error: authentication failed")){
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "Authentication failed,\nplease check your username and password",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                if(fromText.getText().isEmpty() || toText.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "From or To text can not be empty",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                control.bean.setFromText(fromText.getText());
+                control.bean.setToText(toText.getText());
+                control.bean.setSubject(subjectText.getText());
+
+                try{
+                    control.sendFrom();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "TCP Connection lost,please check your network state.",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                if(!control.bean.getRtn().equals("250 Mail OK")){
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "From email address must  equal with your username,\nplease check your username and from mail address",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                try{
+                    control.sendTo();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "TCP Connection lost,please check your network state.",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                if(!control.bean.getRtn().equals("250 Mail OK")){
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "User net found,\nplease check E-mail address",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+
+                control.bean.setMessage(messageText.getText());
+                try{
+                    control.sendMessage();
+                    control.sendMessageEnd();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+                    JOptionPane.showMessageDialog(sendButton.getParent(),
+                            "TCP Connection lost,please check your network state.",
+                            "Failed",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                try{
+                    control.sendQUIT();
+                }catch (IOException ioe){
+                    ioe.printStackTrace();
+
+                }
+                JOptionPane.showMessageDialog(sendButton.getParent(),
+                        "Send successfully",
+                        "Success",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
 
             }
         });
@@ -112,6 +226,25 @@ public class MainPanel extends JPanel{
         this.add(row3);
         this.add(row4);
         this.add(row5);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String temp = "";
+                while(true){
+                    try{
+                        if(!usernameText.getText().equals(temp)){
+                            temp = usernameText.getText();
+                            fromText.setText(temp + "@163.com");
+                        }
+                        sleep(200);
+                    }catch(InterruptedException ite){
+                        ite.printStackTrace();
+                    }
+                }
+
+            }
+        }).start();
     }
 
 }
