@@ -107,10 +107,10 @@ public class NetControl {
         try{
             NetControl control = new NetControl();
             control.sendHELO();
-            control.bean.setUserName("dingcuiqin");
-            control.bean.setPassword("dcq740914");
-            control.bean.setFromText("dingcuiqin@163.com");
-            control.bean.setToText("dingcuiqin@163.com");
+            control.bean.setUserName("");
+            control.bean.setPassword("");
+            control.bean.setFromText("@163.com");
+            control.bean.setToText("@163.com");
             control.bean.setMessage("");
             control.bean.setSubject("TEST MAIL");
             control.sendUserName();

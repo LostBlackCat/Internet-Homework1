@@ -25,6 +25,7 @@ public class MainPanel extends JPanel{
     private JButton sendButton;
     private JButton clearButton;
     public JButton quitButton;
+    private JButton helpButton;
 
     private NetControl control;
 
@@ -53,6 +54,8 @@ public class MainPanel extends JPanel{
         clearButton.setBorder(BorderFactory.createRaisedBevelBorder());
         quitButton = new JButton(" Quit ");
         quitButton.setBorder(BorderFactory.createRaisedBevelBorder());
+        helpButton = new JButton("Help");
+        helpButton.setBorder(BorderFactory.createRaisedBevelBorder());
     }
 
     public MainPanel(){
@@ -90,6 +93,7 @@ public class MainPanel extends JPanel{
         row5.add(sendButton);
         row5.add(clearButton);
         row5.add(quitButton);
+        row5.add(helpButton);
 
         sendButton.addActionListener(new ActionListener() {
             @Override
@@ -214,6 +218,22 @@ public class MainPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setText("");
+            }
+        });
+
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(sendButton.getParent(),
+                        "This is a Email Client for 163 Email\n" +
+                                "Please notice following issues:\n" +
+                                "i.Before you use client,make sure you have already had a 163 email address and opened the SMTP sending function.\n" +
+                                "ii.From text email address must equal to your username.\n" +
+                                "iii.If receiver could not receive email,please check trash box.\n\n" +
+                                "Powered by wxy(09017229),Computer Science faculty,SEU.\n" +
+                                "Contact address:634312391@qq.com",
+                        "Help",
+                        JOptionPane.WARNING_MESSAGE);
             }
         });
 

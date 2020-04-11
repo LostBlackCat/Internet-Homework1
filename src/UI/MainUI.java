@@ -7,7 +7,7 @@ public class MainUI extends JFrame {
     private MainPanel myPannel;
 
     private MainUI(){
-        this.setTitle("邮件客户机");
+        this.setTitle("163 Email Client");
         myPannel = new MainPanel();
         this.add(myPannel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
