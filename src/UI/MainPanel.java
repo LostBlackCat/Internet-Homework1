@@ -231,6 +231,7 @@ public class MainPanel extends JPanel{
                                 "ii.From text email address must equal to your username.\n" +
                                 "iii.If receiver could not receive email,please check trash box.\n\n" +
                                 "Powered by wxy(09017229),Computer Science faculty,SEU.\n" +
+                                "Source Code:https://github.com/LostBlackCat/Internet-Homework1\n" +
                                 "Contact address:634312391@qq.com",
                         "Help",
                         JOptionPane.WARNING_MESSAGE);
