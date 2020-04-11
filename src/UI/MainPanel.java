@@ -1,7 +1,7 @@
 package UI;
 
 import net.NetControl;
-import  javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -95,6 +95,21 @@ public class MainPanel extends JPanel{
         row5.add(quitButton);
         row5.add(helpButton);
 
+
+
+        this.add(row0_0);
+        this.add(row0_1);
+        this.add(row0);
+        this.add(row1);
+        this.add(row2);
+        this.add(row3);
+        this.add(row4);
+        this.add(row5);
+
+
+        /**
+         * send按钮的响应函数
+         */
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,6 +229,10 @@ public class MainPanel extends JPanel{
             }
         });
 
+
+        /**
+         * clear按钮的响应函数
+         */
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -221,6 +240,10 @@ public class MainPanel extends JPanel{
             }
         });
 
+
+        /**
+         * help按钮的响应函数
+         */
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -239,15 +262,10 @@ public class MainPanel extends JPanel{
         });
 
 
-        this.add(row0_0);
-        this.add(row0_1);
-        this.add(row0);
-        this.add(row1);
-        this.add(row2);
-        this.add(row3);
-        this.add(row4);
-        this.add(row5);
-
+        /**
+         * 建立线程监听userName字段的变化
+         * 并实时填充FromText
+         */
         new Thread(new Runnable() {
             @Override
             public void run() {

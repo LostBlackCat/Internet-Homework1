@@ -3,13 +3,13 @@ package net;
 import javax.xml.crypto.Data;
 
 public class DataBean {
-    private String userName;
-    private String password;
-    private String fromText;
-    private String toText;
-    private String subject;
-    private String message;
-    private String rtn;
+    private String userName;  //用户名
+    private String password;  //密码
+    private String fromText;  //from邮件地址
+    private String toText;    //to邮件地址
+    private String subject;   //主题
+    private String message;   //主信息
+    private String rtn;       //邮件服务器返回的消息
 
     public DataBean(String userName, String password, String fromText, String toText, String subject, String message) {
         this.userName = userName;
